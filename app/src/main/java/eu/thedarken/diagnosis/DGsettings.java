@@ -165,7 +165,7 @@ public class DGsettings extends PreferenceActivity implements OnSharedPreference
             String target = sharedPreferences.getString(key, "www.google.com");
             if (target.length() < 5) {
 
-                target = "www.google.com";
+                target = "www.simsimi.kr";
                 prefEditor.putString(key, target);
                 prefEditor.commit();
             }
@@ -280,7 +280,7 @@ public class DGsettings extends PreferenceActivity implements OnSharedPreference
             dialog.setMessage(mActivity.getString(R.string.clearing_database));
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             dialog.show();
-            Log.d(TAG, "Clearing DB...");
+            Log.d(TAG, "DB를 지우는 중...");
         }
 
         @Override
@@ -290,7 +290,7 @@ public class DGsettings extends PreferenceActivity implements OnSharedPreference
             } else {
                 Toast.makeText(mContext, mActivity.getString(R.string.sorry_stop_diagnosis), Toast.LENGTH_LONG).show();
             }
-            Log.d(TAG, "...done");
+            Log.d(TAG, "...완료");
 
             dialog.dismiss();
         }
