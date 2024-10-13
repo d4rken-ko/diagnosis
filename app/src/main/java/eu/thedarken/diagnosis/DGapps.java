@@ -36,8 +36,8 @@ public class DGapps extends SherlockFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment and save it for the fragment to
-        // use
+        // 이 조각의 레이아웃을 팽창시키고 조각에 저장합니다.
+        // 사용된.
         mView = inflater.inflate(R.layout.apps, container, false);
         return mView;
     }
