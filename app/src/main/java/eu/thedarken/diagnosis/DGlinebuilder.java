@@ -140,7 +140,7 @@ public class DGlinebuilder extends ListActivity {
         }
 
         /**
-         * Use the array index as a unique id.
+         * 배열 인덱스를 고유 ID로 사용하세요.
          */
         public long getItemId(int position) {
             return position;
