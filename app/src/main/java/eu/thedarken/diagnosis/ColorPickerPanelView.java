@@ -24,17 +24,17 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * This class draws a panel which which will be filled with a color which can be set.
- * It can be used to show the currently selected color which you will get from
- * the {@link ColorPickerView}.
+ * 이 클래스는 설정할 수 있는 색상으로 채워질 패널을 그립니다.
+ * 현재 선택된 색상을 표시하는 데 사용할 수 있습니다.
+ * {@link ColorPickerView}
  *
  * @author Daniel Nilsson
  */
 public class ColorPickerPanelView extends View {
 
     /**
-     * The width in pixels of the border
-     * surrounding the color panel.
+     * 테두리의 픽셀 단위 너비
+     * 색상 패널을 둘러싸고 있습니다.
      */
     private final static float BORDER_WIDTH_PX = 1;
 
@@ -136,7 +136,7 @@ public class ColorPickerPanelView extends View {
     }
 
     /**
-     * Get the color currently show by this view.
+     * 현재 이 보기에서 표시되는 색상을 가져옵니다.
      *
      * @return
      */
@@ -145,7 +145,7 @@ public class ColorPickerPanelView extends View {
     }
 
     /**
-     * Set the color that should be shown by this view.
+     * 이 보기에 표시되어야 하는 색상을 설정합니다.
      *
      * @param color
      */
@@ -155,14 +155,14 @@ public class ColorPickerPanelView extends View {
     }
 
     /**
-     * Get the color of the border surrounding the panel.
+     * 패널을 둘러싼 테두리의 색상을 가져옵니다.
      */
     public int getBorderColor() {
         return mBorderColor;
     }
 
     /**
-     * Set the color of the border surrounding the panel.
+     * 패널을 둘러싼 테두리의 색상을 설정합니다.
      *
      * @param color
      */
