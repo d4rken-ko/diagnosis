@@ -101,8 +101,8 @@ public class ColorPickerPreference
      */
     public static int convertToColorInt(String argb) throws NumberFormatException {
 
-        if (argb.startsWith("#")) {
-            argb = argb.replace("#", "");
+        if (argb.startsWith("♯")) {
+            argb = argb.replace("♯", "");
         }
 
         int alpha = -1, red = -1, green = -1, blue = -1;
