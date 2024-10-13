@@ -129,7 +129,7 @@ public class DGdatabase {
     private DatabaseHelper mDBhelper;
 
     public DGdatabase() {
-        //open the DB for read and write
+        // DB를 읽기 및 쓰기용으로 엽니다.
         //mDB = mDBhelper.getWritableDatabase();
         StringBuilder freqtablebuilder = new StringBuilder();
         freqtablebuilder.append("create table IF NOT EXISTS " + FREQ_TABLE + " ");
@@ -211,11 +211,11 @@ public class DGdatabase {
     public synchronized void clean(long time, ProgDialog p) {
         if (openWrite()) {
             try {
-                Log.d(TAG, "Cleaning old entries");
+                Log.d(TAG, "오래된 항목 청소");
                 for (String t : mDBhelper.getTables()) {
                     p.updateMessage("Cleaning " + t);
-                    mDB.execSQL("DELETE FROM " + t + " WHERE system_time<" + (System.currentTimeMillis() - time) + ";");
-                    Log.d(TAG, "Done cleaning " + t);
+                    mDB.execSQL("삭제 에서 " + t + " 어디 system_time<" + (System.currentTimeMillis() - time) + ";");
+                    Log.d(TAG, "청소 완료 " + t);
                     p.incrProgress();
                 }
             } catch (SQLiteException e) {
@@ -286,13 +286,13 @@ public class DGdatabase {
             Cursor c = null;
             try {
                 StringBuilder querrybuilder = new StringBuilder();
-                querrybuilder.append("SELECT ");
+                querrybuilder.append("선택하다 ");
                 querrybuilder.append("system_time, active_apps, AVG(Cast(active_apps AS Float)) AS avg_act_apps, MAX(active_apps) AS max_act_apps");
                 for (int i = 0; i < ret.usage.length; i++)
                     querrybuilder.append(",  AVG(Cast(core" + i + "_usage AS Float)) AS core" + i + "_avg_total, AVG(Cast(core" + i + "_user AS Float)) AS core" + i + "_avg_user, AVG(Cast(core" + i + "_system AS Float)) AS core" + i + "_avg_system, AVG(Cast(core" + i + "_io AS Float)) AS core" + i + "_avg_io ");
-                querrybuilder.append(" FROM " + CPU_TABLE + " ");
-                querrybuilder.append("ORDER BY system_time DESC ");
-                querrybuilder.append("LIMIT 1;");
+                querrybuilder.append(" 에서 " + CPU_TABLE + " ");
+                querrybuilder.append("주문하기 system_time 설명 ");
+                querrybuilder.append("한계 1;");
                 c = mDB.rawQuery(querrybuilder.toString(), null);
             } catch (SQLiteException e) {
                 tryClose();
@@ -314,7 +314,7 @@ public class DGdatabase {
                 ret.act_apps_max = c.getInt(c.getColumnIndex("max_act_apps"));
                 c.close();
             } else {
-                Log.d(TAG, "getCpuTabInfo query1 resulted in null cursor");
+                Log.d(TAG, "getCpuTabInfo query1이 null 커서를 생성했습니다.");
                 tryClose();
                 return null;
             }
@@ -360,7 +360,7 @@ public class DGdatabase {
         if (openRead()) {
             Cursor c = null;
             try {
-                c = mDB.rawQuery("SELECT *, AVG(total_free) AS avg_free_mem, " +
+                c = mDB.rawQuery("선택하다 *, AVG(total_free) AS avg_free_mem, " +
                         "AVG(shared) AS avg_shared_mem, " +
                         "AVG(buff) AS avg_buff_mem, " +
                         "AVG(cached) AS avg_cached_mem " +
@@ -392,7 +392,7 @@ public class DGdatabase {
                 ret.avg_cached_mem = c.getLong(c.getColumnIndex("avg_cached_mem"));
                 c.close();
             } else {
-                Log.d(TAG, "getMemTabInfo query1 resulted in null cursor");
+                Log.d(TAG, "getMemTabInfo query1 결과 null 커서가 발생했습니다.");
                 return null;
             }
         }
@@ -459,10 +459,10 @@ public class DGdatabase {
         if (openRead()) {
             Cursor c = null;
             try {
-                c = mDB.rawQuery("SELECT traffic_up, traffic_down, rate_up, rate_down, mobile_traffic_up, mobile_traffic_down, mobile_rate_up, mobile_rate_down,system_time " +
-                        "FROM " + NET_TABLE + " " +
-                        "ORDER BY system_time DESC " +
-                        "LIMIT 1;", null);
+                c = mDB.rawQuery("선택하다 traffic_up, traffic_down, rate_up, rate_down, mobile_traffic_up, mobile_traffic_down, mobile_rate_up, mobile_rate_down,system_time " +
+                        "에서 " + NET_TABLE + " " +
+                        "주문하기 system_time DESC " +
+                        "한계 1;", null);
             } catch (SQLiteException e) {
                 tryClose();
                 e.printStackTrace();
@@ -482,16 +482,16 @@ public class DGdatabase {
                 c.close();
             } else {
                 tryClose();
-                Log.d(TAG, "getNetTabInfo query1 resulted in null cursor");
+                Log.d(TAG, "getNetTabInfo query1 결과 null 커서가 생성되었습니다.");
                 return null;
             }
             //3 hours
             c = null;
             try {
-                c = mDB.rawQuery("SELECT MAX(rate_up) AS peak_rate_up_last_3_hours, MAX(rate_down) AS peak_rate_down_last_3_hours, SUM(traffic_down) AS traffic_last_threehour_down, SUM(traffic_up) AS traffic_last_threehour_up, MAX(mobile_rate_up) AS mobile_peak_rate_up_last_3_hours, MAX(mobile_rate_down) AS mobile_peak_rate_down_last_3_hours, SUM(mobile_traffic_down) AS mobile_traffic_last_threehour_down, SUM(mobile_traffic_up) AS mobile_traffic_last_threehour_up,  " +
+                c = mDB.rawQuery("선택하다 MAX(rate_up) AS peak_rate_up_last_3_hours, MAX(rate_down) AS peak_rate_down_last_3_hours, SUM(traffic_down) AS traffic_last_threehour_down, SUM(traffic_up) AS traffic_last_threehour_up, MAX(mobile_rate_up) AS mobile_peak_rate_up_last_3_hours, MAX(mobile_rate_down) AS mobile_peak_rate_down_last_3_hours, SUM(mobile_traffic_down) AS mobile_traffic_last_threehour_down, SUM(mobile_traffic_up) AS mobile_traffic_last_threehour_up,  " +
                         "system_time " +
-                        "FROM " + NET_TABLE + " " +
-                        "WHERE system_time > " + (System.currentTimeMillis() - 10800000) + ";", null);
+                        "에서 " + NET_TABLE + " " +
+                        "어디 system_time > " + (System.currentTimeMillis() - 10800000) + ";", null);
             } catch (SQLiteException e) {
                 tryClose();
                 e.printStackTrace();
@@ -513,13 +513,13 @@ public class DGdatabase {
                 tryClose();
                 return null;
             }
-            //24 hours
+            // 24시간
             c = null;
             try {
-                c = mDB.rawQuery("SELECT MAX(rate_up) AS peak_rate_up_last_24_hours, MAX(rate_down) AS peak_rate_down_last_24_hours, SUM(traffic_down) AS traffic_last_day_down, SUM(traffic_up) AS traffic_last_day_up, MAX(mobile_rate_up) AS mobile_peak_rate_up_last_24_hours, MAX(mobile_rate_down) AS mobile_peak_rate_down_last_24_hours, SUM(mobile_traffic_down) AS mobile_traffic_last_day_down, SUM(mobile_traffic_up) AS mobile_traffic_last_day_up," +
+                c = mDB.rawQuery("선택하다 MAX(rate_up) AS peak_rate_up_last_24_hours, MAX(rate_down) AS peak_rate_down_last_24_hours, SUM(traffic_down) AS traffic_last_day_down, SUM(traffic_up) AS traffic_last_day_up, MAX(mobile_rate_up) AS mobile_peak_rate_up_last_24_hours, MAX(mobile_rate_down) AS mobile_peak_rate_down_last_24_hours, SUM(mobile_traffic_down) AS mobile_traffic_last_day_down, SUM(mobile_traffic_up) AS mobile_traffic_last_day_up," +
                         "system_time " +
-                        "FROM " + NET_TABLE + " " +
-                        "WHERE system_time > " + (System.currentTimeMillis() - 86400000) + ";", null);
+                        "에서 " + NET_TABLE + " " +
+                        "어디 system_time > " + (System.currentTimeMillis() - 86400000) + ";", null);
             } catch (SQLiteException e) {
                 tryClose();
                 e.printStackTrace();
@@ -537,17 +537,17 @@ public class DGdatabase {
                 ret.mobile_traffic_last_day_up = c.getLong(c.getColumnIndex("mobile_traffic_last_day_up"));
                 c.close();
             } else {
-                Log.d(TAG, "getNetTabInfo query3 resulted in null cursor");
+                Log.d(TAG, "getNetTabInfo query3 결과 null 커서가 생성되었습니다.");
                 tryClose();
                 return null;
             }
             //1 week
             c = null;
             try {
-                c = mDB.rawQuery("SELECT MAX(rate_up) AS peak_rate_up_last_24_hours, MAX(rate_down) AS peak_rate_down_last_24_hours, SUM(traffic_down) AS traffic_last_week_down, SUM(traffic_up) AS traffic_last_week_up, MAX(mobile_rate_up) AS mobile_peak_rate_up_last_24_hours, MAX(mobile_rate_down) AS mobile_peak_rate_down_last_24_hours, SUM(mobile_traffic_down) AS mobile_traffic_last_week_down, SUM(mobile_traffic_up) AS mobile_traffic_last_week_up, " +
+                c = mDB.rawQuery("선택하다 MAX(rate_up) AS peak_rate_up_last_24_hours, MAX(rate_down) AS peak_rate_down_last_24_hours, SUM(traffic_down) AS traffic_last_week_down, SUM(traffic_up) AS traffic_last_week_up, MAX(mobile_rate_up) AS mobile_peak_rate_up_last_24_hours, MAX(mobile_rate_down) AS mobile_peak_rate_down_last_24_hours, SUM(mobile_traffic_down) AS mobile_traffic_last_week_down, SUM(mobile_traffic_up) AS mobile_traffic_last_week_up, " +
                         "system_time " +
-                        "FROM " + NET_TABLE + " " +
-                        "WHERE system_time > " + (System.currentTimeMillis() - 604800000) + ";", null);
+                        "에서 " + NET_TABLE + " " +
+                        "어디 system_time > " + (System.currentTimeMillis() - 604800000) + ";", null);
             } catch (SQLiteException e) {
                 tryClose();
                 e.printStackTrace();
@@ -565,7 +565,7 @@ public class DGdatabase {
                 ret.mobile_traffic_last_week_up = c.getLong(c.getColumnIndex("mobile_traffic_last_week_up"));
                 c.close();
             } else {
-                Log.d(TAG, "getNetTabInfo query3 resulted in null cursor");
+                Log.d(TAG, "getNetTabInfo query3 결과 null 커서가 생성되었습니다.");
                 tryClose();
                 return null;
             }
@@ -613,16 +613,16 @@ public class DGdatabase {
         if (openRead()) {
             Cursor c = null;
             try {
-                c = mDB.rawQuery("SELECT *, AVG(level) AS batt_level_avg, " +
+                c = mDB.rawQuery("선택하다 *, AVG(level) AS batt_level_avg, " +
                         "AVG(voltage) AS voltage_avg, " +
                         "MIN(voltage) AS voltage_min, " +
                         "MAX(voltage) AS voltage_max, " +
                         "AVG(temp) AS batt_temp_avg, " +
                         "MIN(temp) AS batt_temp_min, " +
                         "MAX(temp) AS batt_temp_max " +
-                        "FROM " + BATT_TABLE + " " +
-                        "ORDER BY system_time DESC " +
-                        "LIMIT 1;", null);
+                        "에서 " + BATT_TABLE + " " +
+                        "주문하기 system_time 설명 " +
+                        "한계 1;", null);
             } catch (SQLiteException e) {
                 e.printStackTrace();
                 tryClose();
@@ -650,7 +650,7 @@ public class DGdatabase {
                 ret.batt_temp_max = c.getInt(c.getColumnIndex("batt_temp_max"));
                 c.close();
             } else {
-                Log.d(TAG, "getBattTabInfo query1 resulted in null cursor");
+                Log.d(TAG, "getBattTabInfo 쿼리1 null 커서가 생성되었습니다.");
                 tryClose();
                 return null;
             }
@@ -710,10 +710,10 @@ public class DGdatabase {
                     break;
             }
             try {
-                c = mDB.rawQuery("SELECT command,cpu,mem,system_time,vsz,COUNT(*) AS seen,AVG(mem) AS avg_mem,AVG(cpu) AS avg_cpu " +
-                        "FROM " + APP_TABLE + " " +
-                        "GROUP BY command " +
-                        "ORDER BY " + sorter + " DESC;", null);
+                c = mDB.rawQuery("선택하다 command,cpu,mem,system_time,vsz,COUNT(*) AS seen,AVG(mem) AS avg_mem,AVG(cpu) AS avg_cpu " +
+                        "에서 " + APP_TABLE + " " +
+                        "그룹별로 command " +
+                        "주문하기 " + sorter + " 설명;", null);
             } catch (SQLiteException e) {
                 tryClose();
                 e.printStackTrace();
@@ -747,7 +747,7 @@ public class DGdatabase {
                 }
                 c.close();
             } else {
-                Log.d(TAG, "getAppTabInfo query1 resulted in null cursor");
+                Log.d(TAG, "getAppTabInfo query1 결과 null 커서가 발생했습니다.");
                 tryClose();
                 return null;
             }
@@ -793,13 +793,13 @@ public class DGdatabase {
         if (openRead()) {
             Cursor c = null;
             try {
-                c = mDB.rawQuery("SELECT *, AVG(extern_used) AS avg_extern_diff, " +
+                c = mDB.rawQuery("선택하다 *, AVG(extern_used) AS avg_extern_diff, " +
                         "AVG(sdcard_used) AS avg_sdcard_diff, " +
                         "AVG(system_used) AS avg_system_diff, " +
                         "AVG(data_used) AS avg_data_diff " +
-                        "FROM " + SPACE_TABLE + " " +
-                        "ORDER BY system_time DESC " +
-                        "LIMIT 1;", null);
+                        "에서 " + SPACE_TABLE + " " +
+                        "주문하기 system_time DESC " +
+                        "한계 1;", null);
             } catch (SQLiteException e) {
                 tryClose();
                 e.printStackTrace();
@@ -823,7 +823,7 @@ public class DGdatabase {
                 ret.avg_data_diff = c.getLong(c.getColumnIndex("avg_data_diff"));
                 c.close();
             } else {
-                Log.d(TAG, "getSpaceTabInfo query1 resulted in null cursor");
+                Log.d(TAG, "getSpaceTabInfo query1 결과 null 커서가 발생했습니다.");
                 tryClose();
                 return null;
             }
@@ -879,10 +879,10 @@ public class DGdatabase {
         if (openRead()) {
             Cursor c = null;
             try {
-                c = mDB.rawQuery("SELECT system_time, signal, AVG(signal) AS avg_signal, MAX(signal) AS max_signal, MIN(signal) AS min_signal " +
-                        "FROM " + WLAN_TABLE + " " +
-                        "ORDER BY system_time DESC " +
-                        "LIMIT 1;", null);
+                c = mDB.rawQuery("선택하다 system_time, signal, AVG(signal) AS avg_signal, MAX(signal) AS max_signal, MIN(signal) AS min_signal " +
+                        "에서 " + WLAN_TABLE + " " +
+                        "주문하기 system_time 설명 " +
+                        "한계 1;", null);
             } catch (SQLiteException e) {
                 e.printStackTrace();
                 tryClose();
@@ -900,7 +900,7 @@ public class DGdatabase {
                 //Log.d("MAAAX","MAX"+ret.max_signal);
                 c.close();
             } else {
-                Log.d(TAG, "getWlanTabInfo query1 resulted in null cursor");
+                Log.d(TAG, "getWlanTabInfo query1 결과 null 커서가 생성되었습니다.");
                 tryClose();
                 return null;
             }
@@ -932,10 +932,10 @@ public class DGdatabase {
         if (openRead()) {
             Cursor c = null;
             try {
-                c = mDB.rawQuery("SELECT system_time, gsm_signal, AVG(gsm_signal) AS avg_gsm_signal, MAX(gsm_signal) AS max_gsm_signal, MIN(gsm_signal) AS min_gsm_signal " +
-                        "FROM " + PHONE_TABLE + " " +
-                        "ORDER BY system_time DESC " +
-                        "LIMIT 1;", null);
+                c = mDB.rawQuery("선택하다 system_time, gsm_signal, AVG(gsm_signal) AS avg_gsm_signal, MAX(gsm_signal) AS max_gsm_signal, MIN(gsm_signal) AS min_gsm_signal " +
+                        "에서 " + PHONE_TABLE + " " +
+                        "주문하기 system_time 설명 " +
+                        "한계 1;", null);
             } catch (SQLiteException e) {
                 e.printStackTrace();
                 tryClose();
@@ -951,7 +951,7 @@ public class DGdatabase {
                 ret.max_gsm_signal = c.getInt(c.getColumnIndex("max_gsm_signal"));
                 c.close();
             } else {
-                Log.d(TAG, "getPhoneTabInfo query1 resulted in null cursor");
+                Log.d(TAG, "getPhoneTabInfo query1 결과 null 커서가 발생했습니다.");
                 tryClose();
                 return null;
             }
@@ -987,11 +987,11 @@ public class DGdatabase {
             Cursor c = null;
             try {
                 StringBuilder querybuilder = new StringBuilder();
-                querybuilder.append("SELECT system_time");
+                querybuilder.append("선택하다 system_time");
                 for (int i = 0; i < ret.cpu_frequency.length; i++)
                     querybuilder.append(", cpu" + i + "_frequency, AVG(Cast(cpu" + i + "_frequency AS Double)) AS avg_cpu" + i + "_freq, MAX(cpu" + i + "_frequency) AS max_obs_cpu" + i + "_freq, MIN(cpu" + i + "_frequency) AS min_obs_cpu" + i + "_freq ");
-                querybuilder.append(" FROM " + FREQ_TABLE + " ");
-                querybuilder.append("ORDER BY system_time DESC ");
+                querybuilder.append(" 에서 " + FREQ_TABLE + " ");
+                querybuilder.append("주문하기 system_time DESC ");
                 querybuilder.append(";");
                 c = mDB.rawQuery(querybuilder.toString(), null);
             } catch (SQLiteException e) {
@@ -1011,7 +1011,7 @@ public class DGdatabase {
                 }
                 c.close();
             } else {
-                Log.d(TAG, "getFreqTab query1 resulted in null cursor");
+                Log.d(TAG, "getFreqTab 쿼리1 결과 null 커서가 발생했습니다.");
                 tryClose();
                 return null;
             }
@@ -1043,10 +1043,10 @@ public class DGdatabase {
         if (openRead()) {
             Cursor c = null;
             try {
-                c = mDB.rawQuery("SELECT system_time, AVG(ping) AS avg_ping, MAX(ping) AS max_ping, MIN(ping) AS min_ping " +
-                        "FROM " + PING_TABLE + " " +
-                        "ORDER BY system_time DESC " +
-                        "LIMIT 1;", null);
+                c = mDB.rawQuery("선택하다 system_time, AVG(ping) AS avg_ping, MAX(ping) AS max_ping, MIN(ping) AS min_ping " +
+                        "에서 " + PING_TABLE + " " +
+                        "주문하기 system_time DESC " +
+                        "한계 1;", null);
             } catch (SQLiteException e) {
                 e.printStackTrace();
                 tryClose();
@@ -1061,7 +1061,7 @@ public class DGdatabase {
                 ret.min_ping = c.getInt(c.getColumnIndex("min_ping"));
                 c.close();
             } else {
-                Log.d(TAG, "getPingTab query1 resulted in null cursor");
+                Log.d(TAG, "getPingTab query1 결과 null 커서가 발생했습니다.");
                 tryClose();
                 return null;
             }
@@ -1075,10 +1075,10 @@ public class DGdatabase {
         if (openRead()) {
             Cursor c = null;
             try {
-                c = mDB.rawQuery("SELECT system_time, write_rate, read_rate, AVG(write_rate) AS avg_write_rate, MAX(write_rate) AS max_write_rate, AVG(read_rate) AS avg_read_rate, MAX(read_rate) AS max_read_rate " +
-                        "FROM " + DISK_TABLE + " " +
-                        "ORDER BY system_time DESC " +
-                        "LIMIT 1;", null);
+                c = mDB.rawQuery("선택하다 system_time, write_rate, read_rate, AVG(write_rate) AS avg_write_rate, MAX(write_rate) AS max_write_rate, AVG(read_rate) AS avg_read_rate, MAX(read_rate) AS max_read_rate " +
+                        "에서 " + DISK_TABLE + " " +
+                        "주문하기 system_time 설명 " +
+                        "한계 1;", null);
             } catch (SQLiteException e) {
                 e.printStackTrace();
                 tryClose();
@@ -1096,7 +1096,7 @@ public class DGdatabase {
                 ret.max_read_rate = c.getLong(c.getColumnIndex("max_read_rate"));
                 c.close();
             } else {
-                Log.d(TAG, "getDiskTabInfo query1 resulted in null cursor");
+                Log.d(TAG, "getDiskTabInfo query1 결과 null 커서가 발생했습니다.");
                 tryClose();
                 return null;
             }
@@ -1147,8 +1147,8 @@ public class DGdatabase {
             createTables(db);
         }
 
-        //this is called when an existing user updates to a newer version of the app
-        // add CREATE TABLE and ALTER TABLE here
+        // 기존 사용자가 앱의 최신 버전으로 업데이트할 때 호출됩니다.
+        // 여기에 CREATE TABLE 및 ALTER TABLE을 추가합니다.
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
