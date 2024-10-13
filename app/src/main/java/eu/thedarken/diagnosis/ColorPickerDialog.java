@@ -86,7 +86,7 @@ public class ColorPickerDialog extends Dialog implements ColorPickerView.OnColor
                         Log.d(TAG, customcolor);
                         int colorcode = 0;
                         try {
-                            colorcode = Color.parseColor("#" + customcolor);
+                            colorcode = Color.parseColor("♯" + customcolor);
                         } catch (Exception e) {
                             colorcode = mNewColor.getColor();
                             e.printStackTrace();
