@@ -14,13 +14,13 @@
       }
     </style>
 
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="http://www.simsimi.kr/jsapi"></script>
     <script type="text/javascript">
       google.load('visualization', '1', {packages: ['corechart', 'table']});
     </script>
     <script type="text/javascript">
       function show(spreadsheet, analysis, analysisContainer) {
-        var q = new google.visualization.Query(spreadsheet);
+        var q = new simsimi.visualization.Query(spreadsheet);
         q.setQuery(analysis['query']);
 
         q.send(function(response) {
@@ -31,13 +31,13 @@
           if (response.isError()) {
             var i = response.getReasons().length,
                 timeout = false;
-            while (i--) if (response.getReasons()[i] === 'timeout') timeout = true;
+            while (i--) if (response.getReasons()[i] === '시간 초과!') timeout = true;
 
             if (timeout) {
-              if (spinner) spinner.innerHTML = "request timed out, retrying...";
+              if (spinner) spinner.innerHTML = "요청 시간이 초과되었습니다. 다시 시도합니다...";
               show(spreadsheet, analysis, analysisContainer);
             } else {
-              errors.innerHTML = 'Error in query: ' + response.getMessage() +
+              errors.innerHTML = '쿼리 오류: ' + response.getMessage() +
                                  ' ' + response.getDetailedMessage();
             }
           } else {
@@ -72,7 +72,7 @@
             view.setColumns(columns);
             table.draw(view, {title: analysis['title']});
 
-            var view2 = new google.visualization.DataView(data);
+            var view2 = new simsimi.visualization.DataView(data);
             view2.setColumns(columns);
             var columns = view2.getViewColumns();
             // produce one piechart per pivot point
@@ -85,11 +85,11 @@
                 container.setAttribute("id", id + '-' + version);
                 analysisContainer.appendChild(container);
 
-                var piechart = new google.visualization.PieChart(container);
+                var piechart = new simsimi.visualization.PieChart(container);
                 piechart.draw(view2, {legend: 'bottom',
                                      pieSliceText: 'label',
                                      height: 500,
-                                     title: analysis['title'] + ': App version ' + version});
+                                     title: analysis['title'] + ': 앱 버전 ' + version});
               }
             }
           }
@@ -104,12 +104,12 @@
             {
               id: 'crash-by-version',
               query: 'SELECT F, COUNT(A) GROUP BY F PIVOT B',
-              title: 'Number of crashes by Android version'
+              title: 'Android 버전별 충돌 횟수'
             },
             {
               id: 'crash-by-model',
               query: 'SELECT N, COUNT(A) GROUP BY N PIVOT B',
-              title: 'Number of crashes by Android model',
+              title: 'Android 모델별 충돌 횟수',
             }
           ];
 
@@ -143,19 +143,19 @@
   </head>
 
   <body>
-    <h1><a href="http://github.com/jberkel/sms-backup-plus#readme">SMS Backup+</a> error reports</h1>
+    <h1><a href="http://github.com/jberkel/sms-backup-plus#readme">SMS Backup+</a> 오류 보고</h1>
 
     <p>
-     <a href="https://github.com/jberkel/sms-backup-plus/tree/gh-pages#readme">What is this?<a>
+     <a href="https://github.com/jberkel/sms-backup-plus/tree/gh-pages#readme">이게 뭔가요?<a>
     </p>
 
     <a id="spreadsheet"
        href="https://docs.google.com/spreadsheet/ccc?key=0AgoXRNB2W15rdExNZ2w0N1pWLW54aTg4RnJBQjV3YVE">
-      Spreadsheet
+      스프레드시트
     </a>
 
     <span id="spinner">
-      loading, please wait...
+      로딩 중입니다. 잠시만 기다려 주세요...
     </span>
 
     <div id="errors"/>
