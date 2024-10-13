@@ -65,12 +65,12 @@ public class AlphaPatternDrawable extends Drawable {
 
     @Override
     public void setAlpha(int alpha) {
-        throw new UnsupportedOperationException("Alpha is not supported by this drawwable.");
+        throw new UnsupportedOperationException("이 드로어블에서는 알파가 지원되지 않습니다.");
     }
 
     @Override
     public void setColorFilter(ColorFilter cf) {
-        throw new UnsupportedOperationException("ColorFilter is not supported by this drawwable.");
+        throw new UnsupportedOperationException("이 드로어블에서는 ColorFilter가 지원되지 않습니다.");
     }
 
     @Override
