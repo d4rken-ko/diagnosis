@@ -25,4 +25,10 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build && gradle --stacktrace && gradle --info && gradle --debug
+      run: ./gradlew build &&
+    - name: Building Stacktree with Gradle
+      run: gradle --stacktrace 
+    - name: Building Info with Gradle
+      run: gradle --info
+    - name: Building Debug with Gradle
+      run: gradle --debug
