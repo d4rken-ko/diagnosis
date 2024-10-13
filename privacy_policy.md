@@ -1,6 +1,6 @@
-Privacy policy for "Diagnosis":
+진단을 위한 개인정보 보호정책:
 
-This app does not share or collect any user data.
-Any data collected for the purpose for this app is kept private and only stored on the device.
+이 앱은 사용자 데이터를 공유하거나 수집하지 않습니다.
+이 앱의 목적으로 수집된 모든 데이터는 비공개로 유지되며 기기에만 저장됩니다.
 
-If you have further questions, just send a mail to support@darken.eu.
+추가 질문이 있으시면 support@darken.eu로 메일을 보내주세요.
