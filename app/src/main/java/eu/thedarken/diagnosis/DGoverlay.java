@@ -156,7 +156,7 @@ public class DGoverlay extends Service {
                     lines.add(init);
 
 
-                    Log.d(TAG, "reset done");
+                    Log.d(TAG, "재설정 완료");
                     setLine(0);
                     setLine(1);
                     setLine(2);
@@ -170,11 +170,11 @@ public class DGoverlay extends Service {
                 }
                 mOverlay.invalidate();
             } else {
-                //Screen was off
+                // 화면이 꺼져 있었습니다
             }
             if (haltoverlay) {
                 haltoverlay = false;
-                Log.d(TAG, "halted");
+                Log.d(TAG, "중단됨");
                 reset = true;
                 stopSelf();
             } else {
@@ -211,7 +211,7 @@ public class DGoverlay extends Service {
 
         data = new DGdata(mContext);
         mOverlay = new Overlay(mContext);
-        Log.d(TAG, "Overlay service started");
+        Log.d(TAG, "오버레이 서비스 시작");
         super.onCreate();
 
         INTERVALL = (settings.getInt("general.intervall", 5) * 1000);
@@ -269,7 +269,7 @@ public class DGoverlay extends Service {
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "Overlay service destroyed");
+        Log.d(TAG, "오버레이 서비스가 파괴되었습니다");
         wm.removeView(mOverlay);
         this.unregisterReceiver(screenOnReciever);
         data.close();
@@ -314,7 +314,7 @@ public class DGoverlay extends Service {
         }
 
         for (ExternalSD sd : getExternalSDs())
-            Log.d(TAG, "External SD found at " + sd.path.getAbsolutePath().toString());
+            Log.d(TAG, "외부 SD가 발견되었습니다 " + sd.path.getAbsolutePath().toString());
     }
 
     private boolean alreadyCovered(File f) {
@@ -335,7 +335,7 @@ public class DGoverlay extends Service {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Log.d(TAG, "Configuration changed, reloading...");
+        Log.d(TAG, "구성이 변경되어 다시 로드 중입니다...");
         reset = true;
     }
 
@@ -382,115 +382,115 @@ public class DGoverlay extends Service {
                 case 4:
                     toset.append("CPU " + (int) CpuInfo.calcAvgCpu(data.getCpu().usage) + "%");
                     break;
-                //<item>Cpu usage USR</item>
+                //<item>CPU 사용량 USR</item>
                 case 5:
                     toset.append("user " + (int) CpuInfo.calcAvgCpu(data.getCpu().user) + "%");
                     break;
-                //<item>Cpu usage SYS</item>
+                //<item>CPU 사용량 SYS</item>
                 case 6:
                     toset.append("sys " + (int) CpuInfo.calcAvgCpu(data.getCpu().system) + "%");
                     break;
-                //<item>Cpu usage IDLE</item>
+                //<item>CPU 사용량 IDLE</item>
                 case 7:
                     toset.append("idl " + (int) CpuInfo.calcAvgCpu(data.getCpu().idle) + "%");
                     break;
-                //<item>Cpu usage IO</item>
+                //<item>CPU 사용량 IO</item>
                 case 8:
                     toset.append("io " + (int) CpuInfo.calcAvgCpu(data.getCpu().io) + "%");
                     break;
-                //<item>Cpu usage NICE</item>
+                //<item>CPU 사용량 NICE</item>
                 case 9:
                     toset.append("nic " + (int) CpuInfo.calcAvgCpu(data.getCpu().nice) + "%");
                     break;
-                //<item>Total free memory</item>
+                //<item>총 사용 가능한 메모리</item>
                 case 10:
                     toset.append("MEM " + Formatter.formatFileSize(mContext, (long) (data.getMem().total_free)));
                     break;
-                //<item>Real free memory</item>
+                //<item>실제 자유 메모리</item>
                 case 11:
                     toset.append("Free " + Formatter.formatFileSize(mContext, (long) (data.getMem().free)));
                     break;
-                //<item>Used memory</item>
+                //<item>사용된 메모리</item>
                 case 12:
                     toset.append("Used " + Formatter.formatFileSize(mContext, (long) (data.getMem().used)));
                     break;
-                //<item>Buffered memory</item>
+                //<item>버퍼링된 메모리</item>
                 case 13:
                     toset.append("Buff " + Formatter.formatFileSize(mContext, (long) (data.getMem().buff)));
                     break;
-                //<item>Cached memory</item>
+                //<item>캐시된 메모리</item>
                 case 14:
                     toset.append("Cache " + Formatter.formatFileSize(mContext, (long) (data.getMem().cached)));
                     break;
-                //<item>System time</item>
+                //<item>시스템 시간</item>
                 case 15:
                     toset.append("Systime:" + System.currentTimeMillis());
                     break;
-                //<item>Download</item>
-                case 16: //Download
+                //<item>다운로드</item>
+                case 16: //다운로드
                     if (data.getNet().rate_down == TrafficStats.UNSUPPORTED) {
-                        toset.append("N/A");
+                        toset.append("없음");
                     } else {
-                        toset.append("DL " + Formatter.formatFileSize(mContext, data.getNet().rate_down) + "/s");
+                        toset.append("디엘에이 " + Formatter.formatFileSize(mContext, data.getNet().rate_down) + "/s");
                     }
                     break;
-                //<item>Upload</item>
+                //<item>업로드</item>
                 case 17: //Upload
                     if (data.getNet().rate_up == TrafficStats.UNSUPPORTED) {
-                        toset.append("N/A");
+                        toset.append("없음");
                     } else {
                         toset.append("UL " + Formatter.formatFileSize(mContext, data.getNet().rate_up) + "/s");
                     }
                     break;
-                //<item>System load</item>
+                //<item>시스템 부하</item>
                 case 18: //Load
                     toset.append("L " + data.getLoad().first + " " + data.getLoad().second + " " + data.getLoad().third);
                     break;
-                //<item>Active app count</item>
+                //<item>활성 앱 수</item>
                 case 19: //Active apps
                     toset.append("Apps" + "(" + data.getCpu().act_apps_cur + ")");
                     break;
-                //<item>Battery level</item>
+                //<item>배터리 수준</item>
                 case 20: //Batt level
                     toset.append(data.getBatt().level + "%");
                     break;
-                //<item>Battery voltage</item>
+                //<item>배터리 전압</item>
                 case 21: //Batt voltage
                     toset.append(((float) data.getBatt().voltage / 1000) + "V");
                     break;
-                //<item>Battery temp</item>
+                //<item>배터리 온도</item>
                 case 22: //Batt temp
                     toset.append(data.getBatt().formatTemp(data.getBatt().batt_temp_cur, use_fahrenheit));
                     break;
-                //<item>Time</item>
+                //<item>시간</item>
                 case 23: //Time
                     toset.append(new SimpleDateFormat("HH:mm:ss").format(new Date()));
                     break;
-                //<item>Date</item>
+                //<item>날짜</item>
                 case 24: //Date
                     toset.append(DateFormat.getDateInstance().format(new Date()));
                     break;
-                //<item>Disk READ</item>
+                //<item>디스크 읽기</item>
                 case 25: //Disk read rate
                     toset.append("R " + Formatter.formatFileSize(mContext, data.getDisk().read_rate) + "/s");
                     break;
-                //<item>Disk WRITE</item>
+                //<item>디스크 쓰기</item>
                 case 26: //Disk write rate
                     toset.append("W " + Formatter.formatFileSize(mContext, data.getDisk().write_rate) + "/s");
                     break;
-                //<item>CPU frequency</item>
+                //<item>CPU 주파수</item>
                 case 27:
                     toset.append((FreqInfo.calcAvgCoreFrequency(data.getFreq().cpu_frequency) / 1000) + "Mhz");
                     break;
-                //<item>Free external space</item>
+                //<item>외부 공간의 자유</item>
                 case 28:
-                    toset.append("Ext " + Formatter.formatFileSize(mContext, (data.getSpace().extern_total - data.getSpace().extern_used)));
+                    toset.append("확장 " + Formatter.formatFileSize(mContext, (data.getSpace().extern_total - data.getSpace().extern_used)));
                     break;
-                //<item>Free sdcard space</item>
+                //<item>무료 SD 카드 공간</item>
                 case 29:
                     toset.append("SD " + Formatter.formatFileSize(mContext, (data.getSpace().sdcard_total - data.getSpace().sdcard_used)));
                     break;
-                //<item>Free system space</item>
+                //<item>시스템 공간 확보</item>
                 case 30:
                     toset.append("Sys " + Formatter.formatFileSize(mContext, (data.getSpace().system_total - data.getSpace().system_used)));
                     break;
@@ -498,7 +498,7 @@ public class DGoverlay extends Service {
                 case 31:
                     toset.append("Data " + Formatter.formatFileSize(mContext, (data.getSpace().data_total - data.getSpace().data_used)));
                     break;
-                //<item>Ping to google.com</item>
+                //<item>simsimi.kr로 핑</item>
                 case 32:
                     long ping = data.getPing().ping;
                     if (ping > 500) {
@@ -507,13 +507,13 @@ public class DGoverlay extends Service {
                         toset.append("Ping " + ping + "ms");
                     }
                     break;
-                //<item>WIFI signal strength</item>
+                //<item>Wi-Fi 신호 강도</item>
                 case 33:
-                    toset.append("WiFi " + data.getWlan().formatSignal(data.getWlan().signal));
+                    toset.append("Wi-Fi " + data.getWlan().formatSignal(data.getWlan().signal));
                     break;
-                //<item>CELL signal strength</item>
+                //<item>CELL 신호 강도</item>
                 case 34:
-                    toset.append("Cell " + data.getPhone().formatSignal(data.getPhone().gsm_signal));
+                    toset.append("셀 " + data.getPhone().formatSignal(data.getPhone().gsm_signal));
                     break;
                 case 35:
                     if (data.getWlan().ip == 0) {
@@ -550,21 +550,21 @@ public class DGoverlay extends Service {
                         toset.append("cUL " + Formatter.formatFileSize(mContext, data.getNet().mobile_rate_up) + "/s");
                     }
                     break;
-                //<item>Core1 frequency</item>
+                //<item>Core1 주파수</item>
                 case 40:
                     if (DGdata.CORES > 0)
                         toset.append("C1 " + (data.getFreq().cpu_frequency[0] / 1000) + "Mhz");
                     else
                         toset.append("C1 N/A");
                     break;
-                //<item>Core2 frequency</item>
+                //<item>Core2 주파수</item>
                 case 41:
                     if (DGdata.CORES > 1)
                         toset.append("C2 " + (data.getFreq().cpu_frequency[1] / 1000) + "Mhz");
                     else
                         toset.append("C2 N/A");
                     break;
-                //<item>Core3 frequency</item>
+                //<item>Core3 주파수</item>
                 case 42:
                     if (DGdata.CORES > 2)
                         toset.append("C3 " + (data.getFreq().cpu_frequency[2] / 1000) + "Mhz");
@@ -572,112 +572,112 @@ public class DGoverlay extends Service {
                         toset.append("C3 N/A");
                     break;
 
-                //<item>Core#1 usage [Pro]</item><!-- 44 -->
+                //<item>Core#1 사용 [Pro]</item><!-- 44 -->
                 case 44:
                     if (DGdata.CORES > 0)
                         toset.append("C1 " + (int) data.getCpu().usage[0] + "%");
                     else
                         toset.append("C1 N/A");
                     break;
-                //<item>Core#1 USR [Pro]</item><!-- 45 -->
+                //<item>코어#1 USR [프로]</item><!-- 45 -->
                 case 45:
                     if (DGdata.CORES > 0)
                         toset.append("C1[usr] " + (int) data.getCpu().user[0] + "%");
                     else
                         toset.append("C1[usr] N/A");
                     break;
-                //<item>Core#1 SYS [Pro]</item><!-- 46 -->
+                //<item>코어#1 SYS [프로]</item><!-- 46 -->
                 case 46:
                     if (DGdata.CORES > 0)
                         toset.append("C1[sys] " + (int) data.getCpu().system[0] + "%");
                     else
                         toset.append("C1[sys] N/A");
                     break;
-                //<item>Core#1 IDLE [Pro]</item><!-- 47 -->
+                //<item>코어#1 IDLE [프로]</item><!-- 47 -->
                 case 47:
                     if (DGdata.CORES > 0)
                         toset.append("C1[idl] " + (int) data.getCpu().idle[0] + "%");
                     else
                         toset.append("C1[idl] N/A");
                     break;
-                //<item>Core#1 IO [Pro]</item><!-- 48 -->
+                //<item>코어#1 IO [프로]</item><!-- 48 -->
                 case 48:
                     if (DGdata.CORES > 0)
                         toset.append("C1[io] " + (int) data.getCpu().io[0] + "%");
                     else
                         toset.append("C1[io] N/A");
                     break;
-                //<item>Core#1 NICE [Pro]</item><!-- 49 -->
+                //<item>코어#1 나이스[프로]</item><!-- 49 -->
                 case 49:
                     if (DGdata.CORES > 0)
                         toset.append("C1[nic] " + (int) data.getCpu().nice[0] + "%");
                     else
                         toset.append("C1[nic] N/A");
                     break;
-                //<item>Core#2 usage [Pro]</item><!-- 50 -->
+                //<item>Core#2 사용 [Pro]</item><!-- 50 -->
                 case 50:
                     if (DGdata.CORES > 1)
                         toset.append("C2 " + (int) data.getCpu().usage[1] + "%");
                     else
                         toset.append("C2 N/A");
                     break;
-                //<item>Core#2 USR [Pro]</item><!-- 51 -->
+                //<item>코어#2 USR [프로]</item><!-- 51 -->
                 case 51:
                     if (DGdata.CORES > 1)
                         toset.append("C2[usr] " + (int) data.getCpu().user[1] + "%");
                     else
                         toset.append("C2[usr] N/A");
                     break;
-                //<item>Core#2 SYS [Pro]</item><!-- 52 -->
+                //<item>코어#2 SYS [프로]</item><!-- 52 -->
                 case 52:
                     if (DGdata.CORES > 1)
                         toset.append("C2[sys] " + (int) data.getCpu().system[1] + "%");
                     else
                         toset.append("C2[sys] N/A");
                     break;
-                //<item>Core#2 IDLE [Pro]</item><!-- 53 -->
+                //<item>코어#2 IDLE [프로]</item><!-- 53 -->
                 case 53:
                     if (DGdata.CORES > 1)
                         toset.append("C2[idl] " + (int) data.getCpu().idle[1] + "%");
                     else
                         toset.append("C2[idl] N/A");
                     break;
-                //<item>Core#2 IO [Pro]</item><!-- 54 -->
+                //<item>코어#2 IO [프로]</item><!-- 54 -->
                 case 54:
                     if (DGdata.CORES > 1)
                         toset.append("C2[io] " + (int) data.getCpu().io[1] + "%");
                     else
                         toset.append("C2[io] N/A");
                     break;
-                //<item>Core#2 NICE [Pro]</item><!-- 55 -->
+                //<item>코어#2 NICE [프로]</item><!-- 55 -->
                 case 55:
                     if (DGdata.CORES > 1)
                         toset.append("C2[nic] " + (int) data.getCpu().nice[1] + "%");
                     else
                         toset.append("C2[nic] N/A");
                     break;
-                //<item>Core#3 usage [Pro]</item><!-- 56 -->
+                //<item>Core#3 사용 [Pro]</item><!-- 56 -->
                 case 56:
                     if (DGdata.CORES > 2)
                         toset.append("C3 " + (int) data.getCpu().usage[2] + "%");
                     else
                         toset.append("C3 N/A");
                     break;
-                //<item>Core#3 USR [Pro]</item><!-- 57 -->
+                //<item>코어#3 USR [프로]</item><!-- 57 -->
                 case 57:
                     if (DGdata.CORES > 2)
                         toset.append("C3[usr] " + (int) data.getCpu().user[2] + "%");
                     else
                         toset.append("C3[usr] N/A");
                     break;
-                //<item>Core#3 SYS [Pro]</item><!-- 58 -->
+                //<item>코어#3 SYS [프로]</item><!-- 58 -->
                 case 58:
                     if (DGdata.CORES > 2)
                         toset.append("C3[sys] " + (int) data.getCpu().system[2] + "%");
                     else
                         toset.append("C3[sys] N/A");
                     break;
-                //<item>Core#3 IDLE [Pro]</item><!-- 59 -->
+                //<item>코어#3 IDLE [프로]</item><!-- 59 -->
                 case 59:
                     if (DGdata.CORES > 2)
                         toset.append("C3[idl] " + (int) data.getCpu().idle[2] + "%");
@@ -691,7 +691,7 @@ public class DGoverlay extends Service {
                     else
                         toset.append("C3[io] N/A");
                     break;
-                //<item>Core#3 NICE [Pro]</item><!-- 61 -->
+                //<item>코어#3 NICE [프로]</item><!-- 61 -->
                 case 61:
                     if (DGdata.CORES > 2)
                         toset.append("C3[nic] " + (int) data.getCpu().nice[2] + "%");
