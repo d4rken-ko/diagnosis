@@ -383,7 +383,7 @@ public class DGdata {
             new updateTask().execute();
 
         }
-        //TODO skip redraw if update not done???
+        // 업데이트가 완료되지 않으면 다시 그리기를 건너뛰나요???
         return true;
     }
 
@@ -392,9 +392,9 @@ public class DGdata {
         try {
             URL url;
             try {
-                url = new URL("http://" + settings.getString("general.internet.ping.target", "www.google.com"));
+                url = new URL("http://" + settings.getString("general.internet.ping.target", "www.simsimi.kr"));
             } catch (Exception e) {
-                url = new URL("http://www.google.com");
+                url = new URL("http://www.simsimi.kr");
             }
             HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
             // urlc.setRequestProperty("User-Agent",
@@ -438,7 +438,7 @@ public class DGdata {
             stat = new StatFs(p.getPath());
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d(TAG, "There was a problem getting Stats for " + p.getName());
+            Log.d(TAG, "통계를 가져오는 중 문제가 발생했습니다 " + p.getName());
             return ret;
         }
         long blockSize = stat.getBlockSize();
@@ -544,7 +544,7 @@ public class DGdata {
                 }
             }
         } else {
-            Log.d(TAG, "Error while getting disk IO");
+            Log.d(TAG, "디스크 IO를 가져오는 동안 오류가 발생했습니다.");
         }
 
         //Rates
@@ -678,7 +678,7 @@ public class DGdata {
                 cpu.act_apps_cur = active_apps.size();
             }
         } else {
-            Log.d(TAG, "Error while getting TOP data");
+            Log.d(TAG, "TOP 데이터를 가져오는 동안 오류가 발생했습니다.");
         }
     }
 
@@ -976,7 +976,7 @@ public class DGdata {
                         } else if (x == 33 || x == 35 || x == 36 || x == 37) {
                             dowifi = true;
                         } else if (x == 34) {
-                            //do cell?
+                            // 휴대폰을 쓰나요?
                         }
                     }
                 }
@@ -1051,7 +1051,7 @@ public class DGdata {
 
         @Override
         protected Boolean doInBackground(String... params) {
-//			Log.d(mContext.getPackageName(), "Writing to DB...");
+//			Log.d(mContext.getPackageName(), "DB에 쓰기...");
             //Cpu data
             LinkedList<CpuInfo> c_inserts = new LinkedList<CpuInfo>();
             while (dbcpulist.size() >= this.density) {
