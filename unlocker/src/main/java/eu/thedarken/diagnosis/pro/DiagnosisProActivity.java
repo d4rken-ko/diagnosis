@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class DiagnosisProActivity extends Activity {
     /**
-     * Called when the activity is first created.
+     * 활동이 처음 생성될 때 호출됩니다.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
