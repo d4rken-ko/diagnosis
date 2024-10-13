@@ -10,7 +10,7 @@ public class DGautostart extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "Diagnosis autostart called");
+        Log.d(TAG, "진단 자동 시작이 호출되었습니다.");
         Intent svc = new Intent(context, DGoverlay.class);
         context.startService(svc);
     }
