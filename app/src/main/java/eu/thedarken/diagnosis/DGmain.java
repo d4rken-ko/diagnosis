@@ -145,14 +145,14 @@ public class DGmain extends SherlockFragmentActivity {
                 f.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d(TAG, "busybox creation failed.");
+                Log.d(TAG, "BusyBox 생성에 실패했습니다.");
                 return false;
             }
-            Log.d(TAG, "busybox has been successfully created.");
+            Log.d(TAG, "BusyBox가 성공적으로 생성되었습니다.");
             setNonRootBusyBox();
             return true;
         } else {
-            Log.d(TAG, "busybox found.");
+            Log.d(TAG, "BusyBox를 찾았습니다.");
         }
         return true;
     }
@@ -162,9 +162,9 @@ public class DGmain extends SherlockFragmentActivity {
         c.addCommand("chmod 777 " + DGmain.BUSYBOX + "\n");
         c.execute();
         if (c.getExitCode() == 0) {
-            Log.d(TAG, "Rights for non root busybox successfully set.");
+            Log.d(TAG, "루트가 아닌 BusyBox에 대한 권한이 성공적으로 설정되었습니다.");
         } else {
-            Log.d(TAG, "Error when trying to set rights for non rooted busybox.");
+            Log.d(TAG, "루팅되지 않은 BusyBox에 대한 권한을 설정하려고 하는 중 오류가 발생했습니다.");
         }
     }
 
@@ -176,7 +176,7 @@ public class DGmain extends SherlockFragmentActivity {
         if (c.getOutput().size() > 0 && c.getOutput().get(0).length() > 21) {
             String vers = c.getOutput().get(0);
             vers = (String) vers.subSequence(0, 22);
-            Log.d(TAG, "Busybox version: " + vers);
+            Log.d(TAG, "BusyBox 버전: " + vers);
             return vers;
         } else {
             return "";
@@ -228,11 +228,11 @@ public class DGmain extends SherlockFragmentActivity {
         private Fragment mFragment;
 
         /**
-         * Constructor used each time a new tab is created.
+         * 새 탭이 생성될 때마다 사용되는 생성자입니다.
          *
-         * @param activity The host Activity, used to instantiate the fragment
-         * @param tag      The identifier tag for the fragment
-         * @param clz      The fragment's Class, used to instantiate the fragment
+         * @param activity 조각을 인스턴스화하는 데 사용되는 호스트 활동
+         * @param tag      프래그먼트의 식별자 태그
+         * @param clz      프래그먼트의 클래스는 프래그먼트를 인스턴스화하는 데 사용됩니다.
          */
         public TabListener(Activity activity, String tag, Class<T> clz) {
             mActivity = activity;
@@ -240,19 +240,19 @@ public class DGmain extends SherlockFragmentActivity {
             mClass = clz;
         }
 
-		/* The following are each of the ActionBar.TabListener callbacks */
+		/* 다음은 각 ActionBar.TabListener 콜백입니다. */
 
         public void onTabSelected(Tab tab, FragmentTransaction ignoredft) {
             FragmentManager fragMgr = ((FragmentActivity) mActivity).getSupportFragmentManager();
             FragmentTransaction ft = fragMgr.beginTransaction();
 
-            // Check if the fragment is already initialized
+            // 조각이 이미 초기화되었는지 확인하세요
             if (mFragment == null) {
                 // If not, instantiate and add it to the activity
                 mFragment = Fragment.instantiate(mActivity, mClass.getName());
                 ft.add(android.R.id.content, mFragment, mTag);
             } else {
-                // If it exists, simply attach it in order to show it
+                // 존재한다면 그것을 보여주기 위해 첨부하기만 하면 됩니다.
                 ft.attach(mFragment);
             }
             try {
@@ -270,7 +270,7 @@ public class DGmain extends SherlockFragmentActivity {
         }
 
         public void onTabReselected(Tab tab, FragmentTransaction ft) {
-            // User selected the already selected tab. Usually do nothing.
+            // 사용자가 이미 선택된 탭을 선택했습니다. 보통 아무것도 하지 않습니다.
         }
     }
 
@@ -299,8 +299,8 @@ public class DGmain extends SherlockFragmentActivity {
                 versCode = 0;
                 versName = "";
             }
-            Log.d(TAG, "VersionName: " + DGmain.versName);
-            Log.d(TAG, "VersionCode: " + DGmain.versCode);
+            Log.d(TAG, "버전 이름: " + DGmain.versName);
+            Log.d(TAG, "버전 코드: " + DGmain.versCode);
 
             dialog.dismiss();
         }
