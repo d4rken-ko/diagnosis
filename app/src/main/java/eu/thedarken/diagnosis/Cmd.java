@@ -26,9 +26,9 @@ public class Cmd {
     public void execute() {
         exe = new Executor(commands, useRoot);
         if (DEBUG) {
-            Log.d(TAG, "SHELLDELAY:" + SHELLDELAY);
+            Log.d(TAG, "셸 딜레이:" + SHELLDELAY);
             if (useRoot)
-                Log.d(TAG, "trying to execute as root");
+                Log.d(TAG, "루트로 실행하려고 합니다");
         }
         exe.start();
         try {
@@ -43,9 +43,9 @@ public class Cmd {
             }
             if (DEBUG) {
                 for (String e : this.getErrors())
-                    Log.d(TAG, "Errors:" + e);
+                    Log.d(TAG, "오류:" + e);
                 for (String s : this.getOutput())
-                    Log.d(TAG, "Output:" + s);
+                    Log.d(TAG, "산출:" + s);
             }
         } catch (InterruptedException e) {
             exe.interrupt();
@@ -132,15 +132,15 @@ public class Cmd {
                 s.close();
 
                 exitcode = q.waitFor();
-                if (DEBUG) Log.d(TAG, "Exitcode: " + exitcode);
+                if (DEBUG) Log.d(TAG, "종료코드: " + exitcode);
             } catch (InterruptedException interrupt) {
                 if (DEBUG)
-                    Log.i(TAG, "Interrupted!");
+                    Log.i(TAG, "중단된!");
                 exitcode = 130;
                 return;
             } catch (IOException e) {
                 if (DEBUG)
-                    Log.i(TAG, "IOException, command failed? not found?");
+                    Log.i(TAG, "IOException, 명령이 실패했습니다. 찾을 수 없습니까?");
                 exitcode = 127;
             } finally {
                 if (q != null)
