@@ -34,10 +34,10 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Displays a color picker to the user and allow them
- * to select a color. A slider for the alpha channel is
- * also available. Enable it by setting
- * setAlphaSliderVisible(boolean) to true.
+ * 사용자에게 색상 선택기를 표시하고 허용합니다.
+ * 색상을 선택하려면 알파 채널용 슬라이더가 있습니다.
+ * 또한 사용 가능합니다. 설정하여 활성화하세요.
+ * setAlphaSliderVisible(boolean)을 true로 설정.
  *
  * @author Daniel Nilsson
  */
@@ -48,31 +48,31 @@ public class ColorPickerView extends View {
     private final static int PANEL_ALPHA = 2;
 
     /**
-     * The width in pixels of the border
-     * surrounding all color panels.
+     * 테두리의 픽셀 단위 너비.
+     * 모든 컬러 패널을 둘러싸고 있습니다.
      */
     private final static float BORDER_WIDTH_PX = 1;
 
     /**
-     * The width in dp of the hue panel.
+     * 색상 패널의 dp 단위 너비입니다.
      */
     private float HUE_PANEL_WIDTH = 30f;
     /**
-     * The height in dp of the alpha panel
+     * 알파 패널의 dp 높이
      */
     private float ALPHA_PANEL_HEIGHT = 20f;
     /**
-     * The distance in dp between the different
-     * color panels.
+     * 다른 것들 사이의 dp 단위의 거리
+     * 컬러 패널.
      */
     private float PANEL_SPACING = 10f;
     /**
-     * The radius in dp of the color palette tracker circle.
+     * 색상 팔레트 추적기 원의 dp 반경.
      */
     private float PALETTE_CIRCLE_TRACKER_RADIUS = 5f;
     /**
-     * The dp which the tracker of the hue or alpha panel
-     * will extend outside of its bounds.
+     * 색조 또는 알파 패널의 추적기가 있는 dp
+     * 경계 밖으로 확장됩니다.
      */
     private float RECTANGLE_TRACKER_OFFSET = 2f;
 
@@ -108,22 +108,21 @@ public class ColorPickerView extends View {
     private boolean mShowAlphaPanel = false;
 
     /*
-     * To remember which panel that has the "focus" when
-     * processing hardware button data.
+     * 하드웨어 버튼 데이터를 처리할 때 "포커스"가 있는 패널을 기억하기 위해
      */
     private int mLastTouchedPanel = PANEL_SAT_VAL;
 
     /**
-     * Offset from the edge we must have or else
-     * the finger tracker will get clipped when
-     * it is drawn outside of the view.
+     * 우리가 가져야 하는 가장자리로부터의 오프셋이 아니면
+     * 손가락 추적기가 잘릴 경우
+     * 그것은 뷰 바깥에 그려져 있습니다.
      */
     private float mDrawingOffset;
 
 
     /*
-     * Distance form the edges of the view
-     * of where we are allowed to draw.
+     * 뷰의 가장자리로부터의 거리
+     * 우리가 그림을 그릴 수 있는 곳은 어디인가요?
      */
     private RectF mDrawingRect;
 
@@ -775,8 +774,8 @@ public class ColorPickerView extends View {
     }
 
     /**
-     * Set a OnColorChangedListener to get notified when the color
-     * selected by the user has changed.
+     * 색상이 변경될 때 알림을 받으려면 OnColorChangedListener를 설정하세요.
+     * 사용자가 선택한 내용이 변경되었습니다.
      *
      * @param listener
      */
@@ -785,14 +784,14 @@ public class ColorPickerView extends View {
     }
 
     /**
-     * Get the color of the border surrounding all panels.
+     * 모든 패널을 둘러싼 테두리의 색상을 가져옵니다.
      */
     public int getBorderColor() {
         return mBorderColor;
     }
 
     /**
-     * Set the color of the border surrounding all panels.
+     * 모든 패널을 둘러싼 테두리의 색상을 설정합니다.
      *
      * @param color
      */
@@ -802,29 +801,29 @@ public class ColorPickerView extends View {
     }
 
     /**
-     * Get the current color this view is showing.
+     * 현재 이 뷰에서 표시되는 색상을 가져옵니다.
      *
-     * @return the current color.
+     * @return 현재 색상.
      */
     public int getColor() {
         return Color.HSVToColor(mAlpha, new float[]{mHue, mSat, mVal});
     }
 
     /**
-     * Set the color the view should show.
+     * 보기에 표시될 색상을 설정합니다.
      *
-     * @param color The color that should be selected.
+     * @param color 선택해야 할 색상입니다.
      */
     public void setColor(int color) {
         setColor(color, false);
     }
 
     /**
-     * Set the color this view should show.
+     * 이 보기에 표시될 색상을 설정합니다.
      *
-     * @param color    The color that should be selected.
-     * @param callback If you want to get a callback to
-     *                 your OnColorChangedListener.
+     * @param color    선택해야 할 색상입니다.
+     * @param callback 콜백을 받으려면
+     *                 당신의 OnColorChangedListener.
      */
     public void setColor(int color, boolean callback) {
 
@@ -850,11 +849,11 @@ public class ColorPickerView extends View {
     }
 
     /**
-     * Get the drawing offset of the color picker view.
-     * The drawing offset is the distance from the side of
-     * a panel to the side of the view minus the padding.
-     * Useful if you want to have your own panel below showing
-     * the currently selected color and want to align it perfectly.
+     * 색상 선택기 뷰의 그리기 오프셋을 가져옵니다.
+     * 도면 오프셋은 측면에서의 거리입니다.
+     * 패딩을 제외한 뷰의 측면에 있는 패널입니다.
+     * 아래에 자신의 패널을 표시하려는 경우 유용합니다.
+     * 현재 선택된 색상을 완벽하게 정렬하고 싶습니다.
      *
      * @return The offset in pixels.
      */
@@ -863,8 +862,8 @@ public class ColorPickerView extends View {
     }
 
     /**
-     * Set if the user is allowed to adjust the alpha panel. Default is false.
-     * If it is set to false no alpha will be set.
+     * 사용자가 알파 패널을 조정할 수 있는지 여부를 설정합니다. 기본값은 false입니다.
+     * false로 설정하면 알파가 설정되지 않습니다.
      *
      * @param visible
      */
@@ -874,9 +873,9 @@ public class ColorPickerView extends View {
             mShowAlphaPanel = visible;
 
 			/*
-             * Reset all shader to force a recreation.
-			 * Otherwise they will not look right after
-			 * the size of the view has changed.
+             * 모든 셰이더를 재설정하여 재생성을 강제합니다.
+			 * 그렇지 않으면 그들은 제대로 보이지 않을 것입니다
+			 * 뷰의 크기가 변경되었습니다.
 			 */
             mValShader = null;
             mSatShader = null;
@@ -902,8 +901,8 @@ public class ColorPickerView extends View {
     }
 
     /**
-     * Set the text that should be shown in the
-     * alpha slider. Set to null to disable text.
+     * 표시되어야 하는 텍스트를 설정하세요.
+     * 알파 슬라이더. 텍스트를 비활성화하려면 null로 설정하세요.
      *
      * @param res string resource id.
      */
@@ -913,9 +912,9 @@ public class ColorPickerView extends View {
     }
 
     /**
-     * Get the current value of the text
-     * that will be shown in the alpha
-     * slider.
+     * 텍스트의 현재 값을 가져옵니다
+     * 알파에서 보여질 것입니다.
+     * 슬라이더.
      *
      * @return
      */
@@ -924,10 +923,10 @@ public class ColorPickerView extends View {
     }
 
     /**
-     * Set the text that should be shown in the
-     * alpha slider. Set to null to disable text.
+     * 표시되어야 하는 텍스트를 설정하세요.
+     * 알파 슬라이더. 텍스트를 비활성화하려면 null로 설정하세요.
      *
-     * @param text Text that should be shown.
+     * @param text 표시되어야 하는 텍스트.
      */
     public void setAlphaSliderText(String text) {
         mAlphaSliderText = text;
