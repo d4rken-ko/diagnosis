@@ -1,3 +1,5 @@
+# Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
 name: Android CI
 
 on:
@@ -23,4 +25,4 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build && gradle --stacktrace && gradle --info && gradle --debug
