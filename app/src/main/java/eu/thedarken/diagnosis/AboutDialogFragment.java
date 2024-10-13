@@ -46,7 +46,7 @@ public class AboutDialogFragment extends SherlockDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().setCanceledOnTouchOutside(true);
         //FIXME
-        getDialog().setTitle("Diagnosis " + versName + "(" + versCode + ")");
+        getDialog().setTitle("진단 " + versName + "(" + versCode + ")");
 
         View v = inflater.inflate(R.layout.about_fragment, container, false);
 
